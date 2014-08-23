@@ -202,6 +202,10 @@ function jessyInkInit()
 			if (parentNode.getAttributeNS(NSS["inkscape"], "groupmode") && (parentNode.getAttributeNS(NSS["inkscape"], "groupmode") == "layer"))
 				continue;
 
+			// Slide attribute to be ignored
+			if (nodes[counter].getAttributeNS(NSS["inkscape"], "label") && nodes[counter].getAttributeNS(NSS["jessyink"], "slide") == "false")
+				continue;
+
 			if (nodes[counter].getAttributeNS(NSS["inkscape"], "label") && nodes[counter].getAttributeNS(NSS["jessyink"], "masterSlide") == "masterSlide")
 				masterSlide = nodes[counter];
 			else if (nodes[counter].getAttributeNS(NSS["inkscape"], "label") && nodes[counter].getAttributeNS(NSS["jessyink"], "presentationLayer") == "presentationLayer")
