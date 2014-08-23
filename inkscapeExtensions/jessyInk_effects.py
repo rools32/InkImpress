@@ -54,23 +54,21 @@ class JessyInk_Effects(inkex.Effect):
 			inkex.errormsg(_("No object selected. Please select the object you want to assign an effect to and then press apply.\n"))
 
 		for id, node in list(self.selected.items()):
-			if (self.options.effectIn == "appear") or (self.options.effectIn == "fade") or (self.options.effectIn == "pop"):
-				node.set("{" + inkex.NSS["jessyink"] + "}effectIn","name:" + self.options.effectIn  + ";order:" + self.options.effectInOrder + ";length:" + str(int(self.options.effectInDuration * 1000)))
+			if self.options.effectIn in ("appear", "fade", "pop"):
+				attribs = { inkex.addNS('href','xlink'): '#'+id }
+				clone = inkex.etree.SubElement(self.current_layer, inkex.addNS('use','svg'), attribs)
+				clone.set("{" + inkex.NSS["jessyink"] + "}effectIn","name:" + self.options.effectIn  + ";order:" + self.options.effectInOrder + ";length:" + str(int(self.options.effectInDuration * 1000)))
 				# Remove possible view argument.
 				if "{" + inkex.NSS["jessyink"] + "}view" in node.attrib:
 					del node.attrib["{" + inkex.NSS["jessyink"] + "}view"]
-			else:
-				if "{" + inkex.NSS["jessyink"] + "}effectIn" in node.attrib:
-					del node.attrib["{" + inkex.NSS["jessyink"] + "}effectIn"]
 		
-			if (self.options.effectOut == "appear") or (self.options.effectOut == "fade") or (self.options.effectOut == "pop"):
-				node.set("{" + inkex.NSS["jessyink"] + "}effectOut","name:" + self.options.effectOut  + ";order:" + self.options.effectOutOrder + ";length:" + str(int(self.options.effectOutDuration * 1000)))
+			if self.options.effectOut in ("appear", "fade", "pop"):
+				attribs = { inkex.addNS('href','xlink'): '#'+id }
+				clone = inkex.etree.SubElement(self.current_layer, inkex.addNS('use','svg'), attribs)
+				clone.set("{" + inkex.NSS["jessyink"] + "}effectOut","name:" + self.options.effectOut  + ";order:" + self.options.effectOutOrder + ";length:" + str(int(self.options.effectOutDuration * 1000)))
 				# Remove possible view argument.
 				if "{" + inkex.NSS["jessyink"] + "}view" in node.attrib:
 					del node.attrib["{" + inkex.NSS["jessyink"] + "}view"]
-			else:
-				if "{" + inkex.NSS["jessyink"] + "}effectOut" in node.attrib:
-					del node.attrib["{" + inkex.NSS["jessyink"] + "}effectOut"]
 
 # Create effect instance
 effect = JessyInk_Effects()

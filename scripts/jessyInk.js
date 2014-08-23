@@ -345,25 +345,22 @@ function jessyInkInit()
 
 			for (var effectCounter = 0; effectCounter < effects.length; effectCounter++)
 			{
-				var element = document.getElementById(effects[effectCounter]);
-				var dict = propStrToDict(element.getAttributeNS(NSS["jessyink"], propName));
+				var clone = document.getElementById(effects[effectCounter]);
+				var dict = propStrToDict(clone.getAttributeNS(NSS["jessyink"], propName));
+				var element = document.getElementById(clone.getAttributeNS(NSS["xlink"], "href").substring(1)+"_0");
 
 				// Put every element that has an effect associated with it, into its own group.
-				// Unless of course, we already put it into its own group.
-				if (!(groups[element.id]))
-				{
-					var newGroup = document.createElementNS(NSS["svg"], "g");
+				var newGroup = document.createElementNS(NSS["svg"], "g");
 
-					element.parentNode.insertBefore(newGroup, element);
-					newGroup.appendChild(element.parentNode.removeChild(element));
-					groups[element.id] = newGroup;
-				}
+				element.parentNode.insertBefore(newGroup, element);
+				newGroup.appendChild(element.parentNode.removeChild(element));
 
 				var effectDict = new Object();
 
 				effectDict["effect"] = dict["name"];
 				effectDict["dir"] = dir;
-				effectDict["element"] = groups[element.id];
+				effectDict["element"] = newGroup;
+				dict["_source"] = clone;
 
 				for (var option in dict)
 				{
