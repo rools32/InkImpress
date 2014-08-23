@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sect1 xmlns="http://docbook.org/ns/docbook">
+	<title>Frequently asked questions</title>
+	<sect2>
+		<title>How do I export a JessyInk presentation to PDF or PNG?</title>
+		<para>
+			Please read the chapter on the export extension for a detailed description on how to export your presentation to other formats.
+		</para>
+	</sect2>
+	<sect2>
+		<title>Does JessyInk support zoom-based presentations?</title>
+		<para>
+			Yes, see the views extension and the dragging/zoom mouse handler.
+		</para>
+	</sect2>
+	<sect2>
+		<title>Can I use my remote to flip through a JessyInk presentation?</title>
+		<para>
+			Usually that should not be a problem, if your remote maps to the appropriate keys (e.g. left arrow, right arrow, enter). JessyInk also provides an Inkscape extension to reassign the bindings of different keys to specific actions (e.g. advancing a slide). This should provide you with a lot of flexibility to make your remote work with JessyInk the way you like it.
+		</para>
+		<para>
+			For OSX, Elwin Estle pointed out that there is an application called NeoRemote (http://www.jfedor.org/neoremote) that allows you to map your Apple remote buttons to keyboard keys. Doing so enables you to control your JessyInk presentation with the Apple remote.
+		</para>
+	</sect2>
+</sect1>
+

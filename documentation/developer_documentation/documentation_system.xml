@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sect1 xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude">
+	<title>Documentation system</title>
+	<para>
+		There are several parts to the documentation.
+		In broad terms it can be split into user and developer documentation, which coincides with the way this book is structured.
+		Although user maintained documentation and user comments are always highly appreciated and essential, there should also be a core of developer maintained documentation.
+	</para>
+	<sect2>
+		<title>User documentation</title>
+		<para>
+			The user documentation aims to provide all the information necessary for a typical user to set up and productively use JessyInk.
+			It also aims to provide a general reference and help with particular questions.
+			Furthermore, it should be a collection of best pratices.
+		</para>
+	</sect2>
+	<sect2>
+		<title>Developer documentation</title>
+		<para>
+			The developer documentation should enable any person feeling that they want to contribute to the JessyInk project to do so with a reasonable ammount of effort.
+			It should therefore provide information on the system architecture, implementation and reference documentation.
+		</para>
+	</sect2>
+	<sect2>
+		<title>Architecture</title>
+		<para>
+			The core piece of the documentation is a series of the DocBook documents containing the information in a structured way.
+			Using these XML files, the JessyInk book can be generated with the help of the DocBook XSLT files for XHTML output.
+			The transformation is by default done with xsltproc, but there are lots of alternative avaiable.
+			To help with the process, a cmake script is provided.
+			Documentation in the Google Code wiki style can also be created using the same source files, but applying a different, custom made style sheet to it.
+		</para> 
+		<para>
+			Images that go with the docbook documents are expected to be supplied as SVGs. They are converted into PNG for inclusion in the XHTML documents. The conversion is done by the CMake script using rsvg-convert contained in the librsvg2-bin package. The conversion could also be done by Inkscape. However, Inkscape is rather slow when used for batch conversion.
+		</para>
+		<para>
+			Translation of these documents is not yet automised. However, using the programme xml2po, it should be possible to set up a translation toolchain that can be automised. Using po-files for translation has the additional benefit that it should integrate well with the launchpad translation facilities. 
+		</para>
+		<para>
+			Additionally, the source code comments can be extracted using the jsdoc_toolkit to create a reference documentation.
+		</para>
+	</sect2>
+	<sect2>
+		<title>Document translation</title>
+		<para>
+			Currently, the documentation is available only in English. However, care has been taken to design the workflow in a way that will allow translation to be integrated.
+		</para>
+		<para>
+			Translation the docbook files should be fairly easy. The programme xml2po can be used to create a pot file, which can then, either with or without the integration of launchpad, be translated into different languages. Using the translated po files, it should be possible to easily create translated versions of the JessyInk book and the Google Code wiki pages.
+		</para>
+		<para>
+			To create the required pot file the following command can be used on an Ubuntu system.
+		</para>
+		<programlisting>
+			<prompt>xml2po -o the_jessyink_book.pot $(find . -name '*.xml')</prompt>
+		</programlisting>
+	</sect2>
+</sect1>
+

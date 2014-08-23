@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude">
+	<title>User documentation</title>
+	<para>
+		Due to the JessyInk extensions for Inkscape, installation is now very straight forward.
+	</para>
+	<xi:include href="installation.xml"/>
+	<xi:include href="transitions.xml"/>
+	<xi:include href="export.xml"/>
+	<xi:include href="mouse_handler.xml"/>
+	<xi:include href="video.xml"/>
+	<xi:include href="faqs.xml"/>
+</chapter>
+

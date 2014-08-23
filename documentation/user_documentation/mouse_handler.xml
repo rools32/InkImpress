@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sect1 xmlns="http://docbook.org/ns/docbook">
+	<title>Mouse handler</title>
+	<para>
+		Mouse handler are a set of functions that determine what actions are taken when the user performs different actions using the mouse, such as clicking on a certain object on the screen, dragging a slide or zooming in on a portion of the slide.
+	</para>
+	<para>
+		Since mouse actions are somewhat more complex than key presses, mouse actions are assigned as a set of functions.
+		Currently, three such sets are available for JessyInk.
+		Apart from the default set, there is a set, where a mouse click does not trigger any action and finally a set optimsed for zoom-based presentations.
+	</para>
+	<sect2>
+		<title>Assigning a mouse handler set</title>
+		<para>
+			Using the JessyInk "mouse handler" extension, the different sets of mouse handlers can be selected.
+		</para>
+		<para>
+			Pressing "apply" saves the changes.
+		</para>
+		<mediaobject>
+			<imageobject>
+				<imagedata align="centre" format="PNG" fileref="extension_mouse_handler.png"/>
+			</imageobject>
+			<caption>
+				<para>
+					Dialog window of the mouse handler extension.
+				</para>
+			</caption>
+		</mediaobject>
+	</sect2>
+	<sect2>
+		<title>The default mouse handler</title>
+		<para>
+			With the default mouse handler the following assignment of actions applies:
+		</para>
+		<table frame='all'>
+			<title>Default mouse handler actions in slide mode</title>
+			<tgroup cols='2' align='left' colsep='1' rowsep='1'>
+				<colspec colname='mouse_event'/>
+				<colspec colname='action'/>
+				<thead>
+					<row>
+						<entry>mouse event</entry>
+						<entry>action</entry>
+					</row>
+				</thead>
+				<tbody>
+					<row>
+						<entry>mouse down</entry>
+						<entry>dispatch next event</entry>
+					</row>
+					<row>
+						<entry>scroll down</entry>
+						<entry>advance (skipping effects)</entry>
+					</row>
+					<row>
+						<entry>scroll up</entry>
+						<entry>go back (skipping effects)</entry>
+					</row>
+				</tbody>
+			</tgroup>
+		</table>
+		<table frame='all'>
+			<title>Default mouse handler actions in index mode</title>
+			<tgroup cols='2' align='left' colsep='1' rowsep='1'>
+				<colspec colname='mouse_event'/>
+				<colspec colname='action'/>
+				<thead>
+					<row><entry>mouse event</entry><entry>action</entry></row>
+				</thead>
+				<tbody>
+					<row><entry>mouse down</entry><entry>switch to slide mode</entry></row>
+				</tbody>
+			</tgroup>
+		</table>
+		<table frame='all'>
+			<title>Default mouse handler actions in drawing mode</title>
+			<tgroup cols='2' align='left' colsep='1' rowsep='1'>
+				<colspec colname='mouse_event'/>
+				<colspec colname='action'/>
+				<thead>
+					<row><entry>mouse event</entry><entry>action</entry></row>
+				</thead>
+				<tbody>
+					<row><entry>mouse down</entry><entry>start drawing</entry></row>
+					<row><entry>mouse up</entry><entry>end drawing</entry></row>
+					<row><entry>mouse move</entry><entry>draw</entry></row>
+				</tbody>
+			</tgroup>
+		</table>
+	</sect2>
+	<sect2>
+		<title>The no-click mouse handler</title>
+		<para>
+			With this mouse handler the assignment is identical to the default mouse handler, just that the mouse click does not trigger any actions.
+		</para>
+	</sect2>
+	<sect2>
+		<title>The dragging/zoom mouse handler</title>
+		<para>
+			With the dragging/zoom mouse handler the actions for index and drawing mode are the same. For slide mode, the following assignment of actions applies:
+		</para>
+		<table frame='all'>
+			<title>Dragging/zoom mouse handler actions in slide mode</title>
+			<tgroup cols='2' align='left' colsep='1' rowsep='1'>
+				<colspec colname='mouse_event'/>
+				<colspec colname='action'/>
+				<thead>
+					<row><entry>mouse event</entry><entry>action</entry></row>
+				</thead>
+				<tbody>
+					<row><entry>mouse down</entry><entry>start dragging</entry></row>
+					<row><entry>mouse up</entry><entry>end dragging</entry></row>
+					<row><entry>mouse move</entry><entry>drag the slide</entry></row>
+					<row><entry>mouse click</entry><entry>create ad-hoc view</entry></row>
+					<row><entry>mouse scroll</entry><entry>zoom in/out</entry></row>
+				</tbody>
+			</tgroup>
+		</table>
+		<para>
+			An ad-hoc view is a view that is created on the fly, without being defined in Inkscape. If an object that is visible in its entirety on the screen is clicked on, a zoom is applied, so that the object fills the screen. If more than one object was under the mouse pointer at the time of the click, the largest entirely visible object is used. If no suitable object for a zoom is found, the slide is zoomed out.
+		</para>
+	</sect2>
+</sect1>
+

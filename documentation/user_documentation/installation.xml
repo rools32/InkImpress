@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sect1 xmlns="http://docbook.org/ns/docbook">
+	<title>Installation</title>
+	<para>
+		To obtain basic functionality, only three simple steps are required.
+	</para>
+	<sect2>
+		<title>Installing the JessyInk extensions for InkScape</title>
+		<para>
+			For Ubuntu, installation packages are available on the launchpad site.
+			After installing the package following the instructions on launchpad, you can continue directly with step 3 (Installing the JessyInk skript).
+		</para>
+		<para>
+			The JessyInk extensions depend on the "inkex" script provided by Inkscape. Therefore, the easiest way to install them is to simply copy all the files found in the folder named "inkscapeExtensions" of the distribution to the directory containing the "inkex.py" file. Depending on your operating system, this file is usually located in one of the following directories:
+		</para>
+		<itemizedlist>
+			<listitem>
+				on Windows (English localisation): "C:\Program Files\Inkscape\share\extensions"
+			</listitem>
+			<listitem>
+				on Linux: "/usr/share/inkscape/extensions"
+			</listitem>
+			<listitem>
+				on OS X: "/Applications/Inkscape.app/Contents/Resources/extensions" 
+			</listitem>
+		</itemizedlist>
+		<para>
+			Having copied the files to the correct location, Inkscape will automatically display the submenu "JessyInk" in the "effects" menu. The submenu will contain entries for all the different JessyInk extensions.
+		</para>
+		<para>
+			Should you want to install the JessyInk extensions in a different location or should you experience problems running the extensions, please verify that one of the paths given at beginning of the Python script of each JessyInk extension points to the directory where the "inkex.py" script is located.
+		</para>
+	</sect2>
+	<sect2>
+		<title>Changing file permissions (UNIX)</title>
+		<para>
+			Depending on your platform (UNIX-like, Linux, OS X), you may have to change the permission of the files. The python files need to be executable. Should you experience problems you can try the following: Open the terminal, change into the directory where the JessyInk files are located and change the permissions using: 
+		</para>
+		<programlisting>
+			<prompt>chmod 755 jessy*py</prompt>
+			<prompt>chmod 755 jessyInk.js</prompt>
+			<prompt>chmod 644 jessy*inx</prompt>
+		</programlisting>
+	</sect2>
+	<sect2>
+		<title>Installing the JessyInk script in an SVG file</title>
+		<para>
+			After the JessyInk extension has been installed, a new sub-menu titled <guisubmenu>JessyInk</guisubmenu> is available in the <guimenu>effects</guimenu> menu. Selecting <guimenuitem>install/update</guimenuitem> in this menu opens an effect window. Pressing <guibutton>apply</guibutton> in this window, installs (or updates) the JessyInk script. Unless you inspect the document in the XML editor, you won't notice any change. 
+		</para>
+	</sect2>
+</sect1>
+

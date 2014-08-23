@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sect1 xmlns="http://docbook.org/ns/docbook">
+	<title>Video element</title>
+	<para>
+		The video element was inspired by a <ulink url="http://ibbuntu.blogspot.com/2009/06/embedded-movies-in-online-presentations.html">blog post from Tom Ibbotson</ulink>.
+		Tom suggested the videos could be embedded into JessyInk presentations using the HTML5 video tag and provided a first example.
+	</para>
+	<para>
+		To make the integration of video easier, an Inkscape extension to add a video element to a JessyInk presentation was created.
+		This video element is the first of a new kind of JessyInk extensions that come with there own visual object visible in Inkscape.
+		The Inkscape extension only copies this object into the presentation.
+		The options (URL of the video and its size) are then assigned by changing the text in particular field and adjusting the size of a rectangle.
+		For JessyInk 2, It is planned to move all JessyInk extension to this format to improve the user experience and make JessyInk more flexible and more easily extensible.
+	</para>
+	<para>
+		Note that, during the presentation, you have to right click the video and select &quot;play&quot; from the context menu to start playing the movie.
+		Since this triggers a click on the slide, it is recommended that you install the no-click mouse handler to avoid that effects or transitions interfere.
+	</para>
+	<sect2>
+		<title>Adding a video to a presentation</title>
+		<sect3>
+			<title>Adding the video element</title>
+			<para>
+				Select <guimenuitem>video</guimenuitem> form the <guisubmenu>JessyInk</guisubmenu> sub-menu available in the <guimenu>effects</guimenu> menu.
+				In the effects window that appears, select <guibutton>apply</guibutton>. 
+				A video element will be added to the current layer.
+			</para>
+			<mediaobject>
+				<imageobject>
+					<imagedata align="centre" format="PNG" fileref="element_video.png"/>
+				</imageobject>
+				<caption>
+					<para>
+						The video element.
+					</para>
+				</caption>
+			</mediaobject>
+		</sect3>
+		<sect3>
+			<title>Setting the URL of the video</title>
+			<para>
+				To set the URL of the video, replace the text &quot;&lt;replace this text with the url of the movie&gt;&quot; in the video element with the URL of the video you want to be displayed.
+			</para>
+			<para>
+				In Inkscape, this can be done by selecting the text tool in the side bar by clicking on it.
+				Then move the cursor over the text string saying &quot;&lt;replace this text with the url of the movie&gt;&quot; in the video element and click it.
+				Select the whole text string by pressing the &quot;control&quot; and the &quot;a&quot; keys.
+				Afterwards, either type the URL of the video or, if you have copied the URL into the clipboard, paste it into the text field by pressing the &quot;control&quot; and the &quot;v&quot; keys.
+			</para>
+			<para>
+				Note that if you want to use a video stored on your local computer, you have to prefix the path with &quot;file://&quot; (e.g. &quot;file:///home/joeuser/videos/holidays2010.ogg&quot;).
+			</para>
+			<mediaobject>
+				<imageobject>
+					<imagedata align="centre" format="PNG" fileref="element_video_set_url.png"/>
+				</imageobject>
+				<caption>
+					<para>
+						Setting the URL of the video.
+					</para>
+				</caption>
+			</mediaobject>
+		</sect3>
+		<sect3>
+			<title>Setting the size of the video</title>
+			<para>
+				To set the correct size of the video you need to adjust the base size of the grey rectangle.
+			</para>
+			<para>
+				In Inkscape, you can adjust the size of the base size of the gray rectangle by selecting the rectangle tool in the side bar by clicking on it.
+				Afterwards, move the cursor on the grey rectangle in the lower part of the video element and click on it.
+				The tool bar above drawing will change and boxes for changing the width and hight of the base rectangle will appear.
+				Set the width and hight to the original size of the video you want to include (these values can for example be obtained from the &quot;properties&quot; dialog of the file in your file manager).
+			</para>
+			<para>
+				Should you wish to change the display size of the video, you can do so by selecting it using the selection tool (top most tool in the side bar).
+				However, you have to set the correct base size following the steps outlined above first.
+				If you fail to set the base size, your video will distorted.
+			</para>
+			<mediaobject>
+				<imageobject>
+					<imagedata align="centre" format="PNG" fileref="element_video_set_size.png"/>
+				</imageobject>
+				<caption>
+					<para>
+						Setting the size of the video.
+					</para>
+				</caption>
+			</mediaobject>
+		</sect3>
+	</sect2>
+	<sect2>
+		<title>Compatiblity</title>
+		<sect3>
+			<title>Ubuntu 9.10</title>
+			<table frame='all'>
+				<title>Compatibility table for the video element on Ubuntu 9.10.</title>
+				<tgroup cols='2' align='left' colsep='1' rowsep='1'>
+					<colspec colname='browser'/>
+					<colspec colname='remarks'/>
+					<thead>
+						<row>
+							<entry>browser</entry>
+							<entry>remarks</entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry>FireFox 3.6.4pre</entry>
+							<entry>works</entry>
+						</row>
+						<row>
+							<entry>Chromium 5.0.342.7</entry>
+							<entry>video is not displayed</entry>
+						</row>
+						<row>
+							<entry>Opera 10.10</entry>
+							<entry>video is not displayed</entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+		</sect3>
+	</sect2>
+</sect1>
+

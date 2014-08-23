@@ -1,0 +1,25 @@
+body
+{
+	font-family: "Lucida Sans Unicode", LucidaSans, DejaVuSans, Helvetica, Arial, Geneva, Swiss, SunSans-Regular; 
+	font: 14px "Lucida Sans Unicode", LucidaSans, DejaVuSans, Helvetica, Arial;
+	color: #000;
+	line-height: 160%;
+}
+
+.guimenu, .guisubmenu, .guimenuitem
+{
+	background-color: #DDD;
+	padding: 0px 5px 0px 5px;
+}
+
+.guibutton
+{
+	padding: 0px 5px 0px 5px;
+	border: 1px solid #000;
+}
+
+div.caption p
+{
+	font-style: italic;
+}
+

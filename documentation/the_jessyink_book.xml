@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<book xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xlink="http://www.w3.org/TR/xlink">
+	<title>The JessyInk Book</title>
+	<bookinfo>
+		<author>
+			<personname>
+				<firstname>Hannes</firstname>
+				<surname>Hochreiner</surname>
+			</personname>
+		</author>
+		<copyright><year>2010</year><holder>Hannes Hochreiner</holder></copyright>
+		<legalnotice>
+			<para>
+				The JessyInk Book by Hannes Hochreiner is licensed under a <link xlink:href="http://creativecommons.org/licenses/by-nc-nd/3.0/">Creative Commons Attribution-Non-Commercial-No Derivative Works 3.0 Unported License</link>.
+			</para>
+		</legalnotice>
+		<revhistory>
+			<revision>
+				<revnumber>1.0.1</revnumber>
+				<date>2010-05-13</date>
+				<author>
+					<personname>
+						<firstname>Hannes</firstname>
+						<surname>Hochreiner</surname>
+					</personname>
+				</author>
+				<revremark>Update for JessyInk version 1.5.0.</revremark>
+			</revision>
+			<revision>
+				<revnumber>1.0.0</revnumber>
+				<date>2009-12-20</date>
+				<author>
+					<personname>
+						<firstname>Hannes</firstname>
+						<surname>Hochreiner</surname>
+					</personname>
+				</author>
+				<revremark>First version.</revremark>
+			</revision>
+		</revhistory>
+	</bookinfo>
+	<preface>
+		<title>Preface</title>
+		<para>
+			When finished, this book should represent the complete and authoritative documentation for JessyInk.
+			At the moment, it is still in its early stages.
+			However, as time progresses I hope it will be expanded to include a detailed description of the architecture of JessyInk and all its features.
+			Should you need any assistance in using JessyInk or have any suggestions for new features, feel free to use the facilities provided on the launchpad development site at https://launchpad.net/jessyink or contact me directly via email at hannes@hochreiner.net.
+		</para>
+		<sect1>
+			<title>Conventions used in this book</title>
+			<itemizedlist>
+				<listitem>
+					<guimenu>Menus</guimenu>, <guisubmenu>sub-menus</guisubmenu> and <guimenuitem>menu items</guimenuitem> are marked with a grey background.
+				</listitem>
+				<listitem>
+					<guibutton>Buttons</guibutton> are marked with a box.
+				</listitem>
+			</itemizedlist>
+		</sect1>
+	</preface>
+	<xi:include href="user_documentation/user_documentation.xml"/>
+	<xi:include href="developer_documentation/developer_documentation.xml"/>
+</book>
+

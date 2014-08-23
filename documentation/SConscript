@@ -1,0 +1,70 @@
+import os
+
+def the_jessyink_book(target, source, env):
+	xmlFile = None
+	xslFile = None
+	svgFiles = []
+	cssFiles = []
+
+	for file in source:
+		(root, ext) = os.path.splitext(str(file))
+
+		if (ext == '.xsl') & (xslFile == None):
+			xslFile = str(file)
+		elif (ext == '.xml') & (xmlFile == None):
+			xmlFile = str(file)
+		elif ext == ('.svg'):
+			svgFiles.append(str(file))
+		elif ext == ('.css'):
+			cssFiles.append(str(file))
+
+	dirName = str(target[0]) + os.sep
+
+	os.system('xsltproc --xinclude --stringparam base.dir ' + dirName + ' ' + xslFile + ' ' + xmlFile)
+
+	for file in svgFiles:
+		(root, ext) = os.path.splitext(os.path.basename(file))
+		os.system('inkscape --without-gui --file=' + file  + ' --export-dpi=96 --export-png=' + os.path.join(dirName, root) + '.png')
+	
+	for file in cssFiles:
+		os.system('cp ' + file + ' ' + os.path.join(dirName, os.path.basename(file)))
+
+	return None
+
+def google_code_wiki(target, source, env):
+	xslFile = None
+	svgFiles = []
+	xmlFiles = []
+
+	for file in source:
+		(root, ext) = os.path.splitext(str(file))
+
+		if (ext == '.xsl') & (xslFile == None):
+			xslFile = str(file)
+		elif (ext == '.xml'):
+			xmlFiles.append(str(file))
+		elif ext == ('.svg'):
+			svgFiles.append(str(file))
+	
+	dirName = str(target[0]) + os.sep
+	
+	os.mkdir(dirName)
+
+	for file in svgFiles:
+		(root, ext) = os.path.splitext(os.path.basename(file))
+		os.system('inkscape --without-gui --file=' + file  + ' --export-dpi=96 --export-png=' + os.path.join(dirName, root) + '.png')
+
+	for file in xmlFiles:
+		(root, ext) = os.path.splitext(os.path.basename(file))
+		os.system('xsltproc --xinclude -o ' + os.path.join(dirName, root) + '.txt' + ' ' + xslFile + ' ' + str(file))
+
+	return None
+
+env = Environment()
+
+env.Append(BUILDERS = {'theJessyInkBook' : Builder(action = the_jessyink_book)})
+env.theJessyInkBook(Dir('the_jessyink_book'), ['the_jessyink_book.xml', 'the_jessyink_book.xsl', 'the_jessyink_book.css', env.Glob('user_documentation/*'), env.Glob('developer_documentation/*')])
+
+env.Append(BUILDERS = {'googleCodeWiki' : Builder(action = google_code_wiki)})
+env.googleCodeWiki(Dir('google_code_wiki'), ['google_code_wiki.xsl', env.Glob('user_documentation/*.xml'), env.Glob('user_documentation/*.svg'), env.Glob('developer_documentation/*.xml'), env.Glob('developer_documentation/*.svg')])
+

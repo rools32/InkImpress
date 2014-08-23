@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sect1 xmlns="http://docbook.org/ns/docbook">
+	<title>Export</title>
+	<para>
+		The export extension has changed quite substantially in JessyInk version 1.5.
+		While before JessyInk presentations were exported directly in Inkscape from the file that had been used to create them, an intermediate step of exporting the presentation to a new file using FireFox is now required.
+		The reason for this change is that in the old way of exporting a JessyInk presentation all the effects, transitions and other changes to the image that are coded in JavaScript had to be reimplemented in Python.
+		This limited the flexibility of JessyInk and made it very hard to maintain.
+	</para>
+	<para>
+		To export your presentation, follow the steps outlined below:
+	</para>
+	<itemizedlist>
+		<listitem>
+			Create a JessyInk presentation in Inkscape.
+		</listitem>
+		<listitem>
+			Load your presentation in Firefox. At the moment, Firefox is the only borwser that implements the functions required for the export feature to work.
+		</listitem>
+		<listitem>
+			Press the &quot;e&quot; key to start the conversion of your presentation to an svg image with one layer for every effect or transition.
+			The result will be offered as a download.
+			Please note that Firefox might save the resulting file under some seemingly random name (most likely ending in .part).
+			Of course you are welcome to change this name.
+			However, even with the original name the file should open in Inkscape, although you may have to tell your operating system which programme to open it with.
+		</listitem>
+		<listitem>
+			Open the new image in Inkscape.
+		</listitem>
+		<listitem>
+			Select <guimenuitem>save as</guimenuitem> from the <guimenu>file</guimenu> menu.
+		</listitem>
+		<listitem>
+			Enter a file name and choose the location where you want to save the exported presentation.
+		</listitem>
+		<listitem>
+			Select &quot;JessyInk zipped pdf or png output (*.zip)&quot; as the file type.
+		</listitem>
+		<listitem>
+			Click the <guibutton>save</guibutton> button.
+		</listitem>
+		<listitem>
+			The export dialog box shown below will appear.
+			In this dialog box you can select the format (either PDF or PNG) and the resolution.
+			With the PDF format the resolution refers to the resolution of the effects that are rendered to a bitmap image for the export (e.g. blur).
+		</listitem>
+		<listitem>
+			Click the <guibutton>ok</guibutton> button.
+			Please be patient.
+			Depending on the number of slides and effects, the export may take a while.
+			After the message &quot;document saved&quot; apeared in the status bar, you should find a zip file in the location you chose containing one file for each slide and effect in the format you specified. 
+		</listitem>
+	</itemizedlist>
+	<para>
+		Using the intermediate step of creating a new image in the browser first means that the same code is used for the effects on screen as for the export.
+		Even if new effects, transitions or other features are added to JessyInk, the code for the export extension will stay the same.
+		<mediaobject>
+			<imageobject>
+				<imagedata align="centre" format="PNG" fileref="extension_export.png"/>
+			</imageobject>
+			<caption>
+				<para>
+					Dialog box of the export extension.
+				</para>
+			</caption>
+		</mediaobject>
+		<mediaobject>
+			<imageobject>
+				<imagedata align="centre" format="PNG" fileref="extension_export_stepbystep.png"/>
+			</imageobject>
+			<caption>
+				<para>
+					Graphical representation of the new export.
+				</para>
+			</caption>
+		</mediaobject>
+	</para>
+</sect1>
+

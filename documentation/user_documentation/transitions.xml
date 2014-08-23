@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sect1 xmlns="http://docbook.org/ns/docbook">
+	<title>Transitions</title>
+	<para>
+		Currently, there are three different slide transitions available in JessyInk: appear, fade and pop. 
+	</para>
+	<para>
+		Transitions can also be assigned to the master slide where they will act as the default transition for all slides.
+	</para>
+	<sect2>
+		<title>The &quot;appear&quot; transition</title>
+		<para>
+			The &quot;appear&quot; transition is the simplest transition.
+			With this transition the slide simply appears.
+			The effect is instantly.
+			Therefore, the duration setting has no effect on this transition.
+		</para>
+		<mediaobject>
+			<imageobject>
+				<imagedata align="centre" format="PNG" fileref="transition_appear.png"/>
+			</imageobject>
+			<caption>
+				<para>
+					Illustration of the &quot;appear&quot; transition.
+				</para>
+			</caption>
+		</mediaobject>
+	</sect2>
+	<sect2>
+		<title>The &quot;fade&quot; transition</title>
+		<para>
+			The &quot;fade&quot; transition incrementally increases the opacity of a slide.
+			The time from zero opacity to full opacity can be adjusted using the duration setting.
+		</para>
+		<mediaobject>
+			<imageobject>
+				<imagedata align="centre" format="PNG" fileref="transition_fade.png"/>
+			</imageobject>
+			<caption>
+				<para>
+					Illustration of the &quot;fade&quot; transition.
+				</para>
+			</caption>
+		</mediaobject>
+	</sect2>
+	<sect2>
+		<title>The &quot;pop&quot; transition</title>
+		<para>
+			The &quot;pop&quot; transition incrementally increases the opacity of a slide and scales it at the same time.
+			As with the &quot;fade&quot; transition, the duration can be adjusted.
+		</para>
+		<mediaobject>
+			<imageobject>
+				<imagedata align="centre" format="PNG" fileref="transition_pop.png"/>
+			</imageobject>
+			<caption>
+				<para>
+					Illustration of the &quot;pop&quot; transition.
+				</para>
+			</caption>
+		</mediaobject>
+	</sect2>
+	<sect2>
+		<title>Assigning transitions to a slide</title>
+		<para>
+			Using the JessyInk "transition" extension, the transitions for the slides can be set by supplying the name of the layer in the dialog window and selecting the transition type. Different transition types for transitioning in and out can be specified. Furthermore, the duration in seconds of the transition can be specified by setting the corresponding number to a value between 0.1 and 10.0. Please note that the duration has no effect on the transition type "appear", as this transition is instantaneous.
+		</para>
+		<para>
+Pressing "apply" saves the changes. The default is for the slides to simply "appear". If transition are specified with a master slide, these transitions will be used as the default transitions. 
+		</para>
+		<mediaobject>
+			<imageobject>
+				<imagedata align="centre" format="PNG" fileref="extension_transition.png"/>
+			</imageobject>
+			<caption>
+				<para>
+					Dialog window of the transition extension.
+				</para>
+			</caption>
+		</mediaobject>
+	</sect2>
+	<sect2>
+		<title>Assigning transitions to the master slide</title>
+		<para>
+			A transition can be assigned to the master slide in the same way that it is assigned to any other slide.
+			If a transition is assigned to the master slide, this transition is used as the default transition for all slides (i.e. if a slide is not assigned a transition, the master slide transition is used).
+		</para>
+	</sect2>
+</sect1>
+
