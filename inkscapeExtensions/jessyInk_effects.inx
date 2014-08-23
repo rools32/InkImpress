@@ -14,6 +14,7 @@
         <_option value="appear">Appear</_option>
         <_option value="fade">Fade in</_option>
         <_option value="pop">Pop</_option>
+        <_option value="matrix">Matrix</_option>
 			</param>
 			<_param name="effectOutLabel" type="description">Build-out effect</_param>
 			<param name="effectOutOrder" type="int" min="1" max="10000" _gui-text="Order:">1</param>
@@ -23,6 +24,7 @@
         <_option value="appear">Appear</_option>
         <_option value="fade">Fade out</_option>
         <_option value="pop">Pop</_option>
+        <_option value="matrix">Matrix</_option>
 			</param>
 		</page>
     <page name="help" _gui-text="Help">

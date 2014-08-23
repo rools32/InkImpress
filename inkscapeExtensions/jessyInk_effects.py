@@ -54,7 +54,7 @@ class JessyInk_Effects(inkex.Effect):
 			inkex.errormsg(_("No object selected. Please select the object you want to assign an effect to and then press apply.\n"))
 
 		for id, node in list(self.selected.items()):
-			if self.options.effectIn in ("appear", "fade", "pop"):
+			if self.options.effectIn in ("appear", "fade", "pop", "matrix"):
 				attribs = { inkex.addNS('href','xlink'): '#'+id }
 				clone = inkex.etree.SubElement(self.current_layer, inkex.addNS('use','svg'), attribs)
 				clone.set("{" + inkex.NSS["jessyink"] + "}effectIn","name:" + self.options.effectIn  + ";order:" + self.options.effectInOrder + ";length:" + str(int(self.options.effectInDuration * 1000)))
@@ -62,7 +62,7 @@ class JessyInk_Effects(inkex.Effect):
 				if "{" + inkex.NSS["jessyink"] + "}view" in node.attrib:
 					del node.attrib["{" + inkex.NSS["jessyink"] + "}view"]
 		
-			if self.options.effectOut in ("appear", "fade", "pop"):
+			if self.options.effectOut in ("appear", "fade", "pop", "matrix"):
 				attribs = { inkex.addNS('href','xlink'): '#'+id }
 				clone = inkex.etree.SubElement(self.current_layer, inkex.addNS('use','svg'), attribs)
 				clone.set("{" + inkex.NSS["jessyink"] + "}effectOut","name:" + self.options.effectOut  + ";order:" + self.options.effectOutOrder + ";length:" + str(int(self.options.effectOutDuration * 1000)))

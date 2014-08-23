@@ -802,6 +802,8 @@ function effect(dir)
 			done &= view(parseInt(effectArray[counter]["dir"]) * dir, effectArray[counter]["element"], transCounter, effectArray[counter]["options"]);
 		else if (effectArray[counter]["effect"] == "videoStart")
 			done &= videoStart(parseInt(effectArray[counter]["dir"]) * dir, effectArray[counter]["element"], transCounter, effectArray[counter]["options"]);
+		else if (effectArray[counter]["effect"] == "matrix")
+			done &= applyMatrix(parseInt(effectArray[counter]["dir"]) * dir, effectArray[counter]["element"], transCounter, effectArray[counter]["options"]);
 	}
 
 	ROOT_NODE.unsuspendRedraw(suspendHandle);
@@ -1901,6 +1903,66 @@ function pop(dir, element, time, options)
 			element.setAttribute("transform", "scale(" + 1 - fraction + ")");
 			element.style.display = "inherit";
 		}
+	}
+	return false;
+}
+
+/** The matrix effect.
+ *
+ *  @param dir direction the effect should be played (1 = forwards, -1 = backwards)
+ *  @param element the element the effect should be applied to
+ *  @param time the time that has elapsed since the beginning of the effect
+ *  @param options a dictionary with additional options (e.g. length of the effect)
+ */
+function applyMatrix(dir, element, time, options)
+{
+	var length = 5000;
+	var fraction;
+
+	if ((time == STATE_END) || (time == STATE_START))
+		fraction = 1;
+	else
+	{
+		if (options["length"])
+			length = options["length"];
+
+		fraction = time / length;
+	}
+
+	var clone = options["_source"];
+	matrix = clone.transform.animVal[0].matrix;
+	tx = matrix.e;
+	ty = matrix.f;
+	sx = matrix.a/Math.abs(matrix.a)*Math.sqrt(matrix.a*matrix.a+matrix.c*matrix.c);
+	sy = matrix.d/Math.abs(matrix.d)*Math.sqrt(matrix.b*matrix.b+matrix.d*matrix.d);
+	angle = Math.atan(matrix.b/matrix.d);
+
+	if (dir == 1)
+	{
+		if (fraction >= 1)
+		{
+			/*element.setAttribute("transform", document.getElementById(id).getAttribute("transform"));
+			*/
+
+			element.setAttribute("transform",
+					"translate(" + tx + "," + ty + ") " +
+					"scale(" + sx + "," + sy + ") " +
+					"rotate(" + angle + ")");
+
+			return true;
+		}
+		else
+		{
+			element.setAttribute("transform",
+					"translate(" + fraction*tx + "," + fraction*ty + ") " +
+					"scale(" + (1+fraction*(sx-1)) + "," + (1+fraction*(sy-1)) + ") " +
+					"rotate(" + fraction*angle + ")");
+		}
+	}
+	else if (dir == -1)
+	{
+		element.removeAttribute("transform");
+		return true;
 	}
 	return false;
 }
