@@ -197,6 +197,11 @@ function jessyInkInit()
 	{
 		if (nodes[counter].getAttributeNS(NSS["inkscape"], "groupmode") && (nodes[counter].getAttributeNS(NSS["inkscape"], "groupmode") == "layer"))
 		{
+			// Do not consider sublayers
+			var parentNode = nodes[counter].parentNode;
+			if (parentNode.getAttributeNS(NSS["inkscape"], "groupmode") && (parentNode.getAttributeNS(NSS["inkscape"], "groupmode") == "layer"))
+				continue;
+
 			if (nodes[counter].getAttributeNS(NSS["inkscape"], "label") && nodes[counter].getAttributeNS(NSS["jessyink"], "masterSlide") == "masterSlide")
 				masterSlide = nodes[counter];
 			else if (nodes[counter].getAttributeNS(NSS["inkscape"], "label") && nodes[counter].getAttributeNS(NSS["jessyink"], "presentationLayer") == "presentationLayer")
