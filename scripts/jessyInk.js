@@ -80,6 +80,7 @@ var lastFrameTime = null;
 var processingEffect = false;
 var transCounter = 0;
 var effectArray = 0;
+var animationArray = [];
 var defaultTransitionInDict = new Object();
 defaultTransitionInDict["name"] = "appear";
 var defaultTransitionOutDict = new Object();
@@ -702,6 +703,11 @@ function changeSlide(dir)
 	processingEffect = true;
 	effectArray = new Array();
 
+	// Stop animations
+	for (var i = 0; i < animationArray.length; ++i)
+		animationArray[i].endElement();
+	animationArray = new Array();
+
 	effectArray[0] = new Object();
 	if (dir == 1)
 	{
@@ -822,6 +828,8 @@ function effect(dir)
 			done &= videoStart(parseInt(effectArray[counter]["dir"]) * dir, effectArray[counter]["element"], transCounter, effectArray[counter]["options"]);
 		else if (effectArray[counter]["effect"] == "matrix")
 			done &= applyMatrix(parseInt(effectArray[counter]["dir"]) * dir, effectArray[counter]["element"], transCounter, effectArray[counter]["options"]);
+		else if (effectArray[counter]["effect"] == "animate")
+			done &= animate(parseInt(effectArray[counter]["dir"]) * dir, effectArray[counter]["element"], transCounter, effectArray[counter]["options"]);
 	}
 
 	ROOT_NODE.unsuspendRedraw(suspendHandle);
@@ -2047,6 +2055,73 @@ function applyMatrix(dir, element, time, options)
 	}
 	return false;
 }
+
+/** The animate effect.
+ *
+ *  @param dir direction the effect should be played (1 = forwards, -1 = backwards)
+ *  @param element the element the effect should be applied to
+ *  @param time the time that has elapsed since the beginning of the effect
+ *  @param options a dictionary with additional options (e.g. length of the effect)
+ */
+function animate(dir, element, time, options)
+{
+	var length = 5000;
+	var fraction;
+
+	if ((time == STATE_END) || (time == STATE_START))
+		fraction = 1;
+	else
+	{
+		if (options["length"])
+			length = options["length"];
+
+		fraction = time / length;
+	}
+
+	if (fraction == 0)
+	{
+		var animations = [];
+		var source = options["_source"];
+		// Find all the animations
+		for (var i = 0; i < source.childNodes.length; ++i)
+		{
+			child = source.childNodes[i];
+			if (child.toString() == "[object SVGAnimateElement]")
+			{
+				if (length != -1)
+					child.setAttribute("dur", (length/1000)+"s");
+				animations.push(child);
+			}
+		}
+		// Trigger them
+		for (var i = 0; i < animations.length; ++i)
+		{
+			var anim = animations[i];
+			var target = element.childNodes[0];
+
+			var suffix = target.getAttribute("id").substring(target.getAttribute("id").length-2);
+			var copyAnim = document.getElementById(anim.getAttribute("id")+suffix)
+			if (!copyAnim)
+			{
+				copyAnim = anim.cloneNode(false);
+				copyAnim.setAttribute("id", copyAnim.getAttribute("id")+suffix);
+			}
+			target.appendChild(copyAnim);
+			copyAnim.beginElement();
+			animationArray.push(copyAnim);
+		}
+	}
+
+	
+	if (length == -1)
+		return true;
+
+	if (fraction >= 1)
+		return true;
+	else
+		return false;
+}
+
 
 /** Function to set a slide either to the start or the end state.
  *  
