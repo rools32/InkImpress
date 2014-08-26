@@ -1936,6 +1936,11 @@ function applyMatrix(dir, element, time, options)
 {
 	var length = 5000;
 	var fraction;
+	var tx;
+	var ty;
+	var sx;
+	var sy;
+	var angle;
 
 	if ((time == STATE_END) || (time == STATE_START))
 		fraction = 1;
@@ -1947,25 +1952,81 @@ function applyMatrix(dir, element, time, options)
 		fraction = time / length;
 	}
 
-	var clone = options["_source"];
-	matrix = clone.transform.animVal[0].matrix;
-	tx = matrix.e;
-	ty = matrix.f;
-	sx = matrix.a/Math.abs(matrix.a)*Math.sqrt(matrix.a*matrix.a+matrix.c*matrix.c);
-	sy = matrix.d/Math.abs(matrix.d)*Math.sqrt(matrix.b*matrix.b+matrix.d*matrix.d);
-	angle = Math.atan(matrix.b/matrix.d);
+	if (!options["_tx"])
+	{
+		var idMatrix = document.documentElement.createSVGMatrix();
+		idMatrix.a = 1; idMatrix.b = 0; idMatrix.c = 0;
+		idMatrix.d = 1; idMatrix.e = 0; idMatrix.f = 0;
+
+		var clone = options["_source"];
+		targetMatrix = clone.transform.animVal[0].matrix;
+
+		var actualMatrices = [];
+		var group = element.parentNode
+		while (group.hasAttributeNS(NSS["jessyink"], "type")
+				&& group.getAttributeNS(NSS["jessyink"], "type") == "groupEffect")
+		{
+			if (group.transform && group.transform != "")
+			{
+				idx = group.getAttributeNS(NSS["jessyink"], "order");
+
+			  var mat = idMatrix;
+				for (i = 0 ; i < group.transform.animVal.length; i++)
+					mat = mat.multiply(group.transform.animVal[i].matrix)
+				actualMatrices[idx] = mat;
+			}
+			group = group.parentNode;
+		}
+		var actualMatrix = actualMatrices.reduce(
+				function(previousValue, currentValue, index, array) {
+					return previousValue.multiply(currentValue);
+				}, idMatrix);
+
+		test = targetMatrix.multiply(actualMatrix.inverse());
+		matrix = actualMatrix.inverse().multiply(targetMatrix);
+
+		tx = matrix.e;
+		ty = matrix.f;
+		sx = matrix.a/Math.abs(matrix.a)*Math.sqrt(matrix.a*matrix.a+matrix.c*matrix.c);
+		sy = matrix.d/Math.abs(matrix.d)*Math.sqrt(matrix.b*matrix.b+matrix.d*matrix.d);
+		angle = Math.atan(matrix.b/matrix.d)*180/Math.PI;
+
+		// TODO
+		// Version with skew but does not work
+		// http://stackoverflow.com/questions/20422392/given-a-2d-transformation-matrix-how-to-calculate-the-scalings-skews-rotation
+		//sx = Math.sqrt(matrix.a*matrix.a+matrix.c*matrix.c);
+		//sy = Math.sqrt(matrix.b*matrix.b+matrix.d*matrix.d);
+		//skewX = 180/Math.PI*Math.atan2(matrix.d, matrix.b)-90;
+		//skewY = 180/Math.PI*Math.atan2(matrix.c, matrix.a);
+		//angle = skewX;
+
+
+		fields = ["tx", "ty", "sx", "sy", "angle"];
+		//fields = ["tx", "ty", "sx", "sy", "skewX", "skewY", "angle"];
+		for (k in fields)
+			options["_"+fields[k]] = eval(fields[k]);
+	}
+	else
+	{
+		tx = options["_tx"]; 
+		ty = options["_ty"]; 
+		sx = options["_sx"]; 
+		sy = options["_sy"]; 
+		angle = options["_angle"]; 
+		//skewX = options["_skewX"]; 
+		//skewY = options["_skewY"]; 
+	}
 
 	if (dir == 1)
 	{
 		if (fraction >= 1)
 		{
-			/*element.setAttribute("transform", document.getElementById(id).getAttribute("transform"));
-			*/
-
 			element.setAttribute("transform",
 					"translate(" + tx + "," + ty + ") " +
 					"scale(" + sx + "," + sy + ") " +
-					"rotate(" + angle + ")");
+					//"skewX(" + skewX + ") " +
+					//"skewY(" + skewY + ") " +
+					"rotate(" + angle + ") ");
 
 			return true;
 		}
@@ -1974,7 +2035,9 @@ function applyMatrix(dir, element, time, options)
 			element.setAttribute("transform",
 					"translate(" + fraction*tx + "," + fraction*ty + ") " +
 					"scale(" + (1+fraction*(sx-1)) + "," + (1+fraction*(sy-1)) + ") " +
-					"rotate(" + fraction*angle + ")");
+					//"skewX(" + fraction*skewX + ") " +
+					//"skewY(" + fraction*skewY + ") " +
+					"rotate(" + fraction*angle + ") ");
 		}
 	}
 	else if (dir == -1)
