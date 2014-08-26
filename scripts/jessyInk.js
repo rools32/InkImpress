@@ -347,10 +347,12 @@ function jessyInkInit()
 			{
 				var clone = document.getElementById(effects[effectCounter]);
 				var dict = propStrToDict(clone.getAttributeNS(NSS["jessyink"], propName));
-				var element = document.getElementById(clone.getAttributeNS(NSS["xlink"], "href").substring(1)+"_0");
+				var suffix = clone.getAttribute("id").substring(clone.getAttribute("id").length-2);
+				var element = document.getElementById(clone.getAttributeNS(NSS["xlink"], "href").substring(1)+suffix);
 
 				// Put every element that has an effect associated with it, into its own group.
 				var newGroup = document.createElementNS(NSS["svg"], "g");
+				newGroup.setAttributeNS(NSS["jessyink"], "type", "groupEffect");
 
 				element.parentNode.insertBefore(newGroup, element);
 				newGroup.appendChild(element.parentNode.removeChild(element));
@@ -362,9 +364,25 @@ function jessyInkInit()
 				effectDict["element"] = newGroup;
 				dict["_source"] = clone;
 
+				// Find the order of the effect, baesd on the position in the sibling of the parent layer
+				var parentLayer = clone.parentNode;
+				while (!parentLayer.getAttributeNS(NSS["inkscape"], "groupmode") || parentLayer.getAttributeNS(NSS["inkscape"], "groupmode") != "layer")
+					parentLayer = parentLayer.parentNode;
+				// Position of the layer
+				var position = 0;
+				for (var i = 0; i < parentLayer.parentNode.childNodes.length; ++i)
+				{
+					if (parentLayer.parentNode.childNodes[i] == parentLayer)
+						break;
+					if (parentLayer.parentNode.childNodes[i].toString() == "[object SVGGElement]")
+						position++;
+				}
+				dict["order"] = position;
+				newGroup.setAttributeNS(NSS["jessyink"], "order", position);
+
 				for (var option in dict)
 				{
-					if ((option != "name") && (option != "order"))
+					if (option != "name")
 					{
 						if (!effectDict["options"])
 							effectDict["options"] = new Object();

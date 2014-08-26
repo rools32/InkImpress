@@ -34,10 +34,8 @@ class JessyInk_Effects(inkex.Effect):
 		inkex.Effect.__init__(self)
 
 		self.OptionParser.add_option('--tab', action = 'store', type = 'string', dest = 'what')
-		self.OptionParser.add_option('--effectInOrder', action = 'store', type = 'string', dest = 'effectInOrder', default = 1)
 		self.OptionParser.add_option('--effectInDuration', action = 'store', type = 'float', dest = 'effectInDuration', default = 0.8)
 		self.OptionParser.add_option('--effectIn', action = 'store', type = 'string', dest = 'effectIn', default = 'none')
-		self.OptionParser.add_option('--effectOutOrder', action = 'store', type = 'string', dest = 'effectOutOrder', default = 2)
 		self.OptionParser.add_option('--effectOutDuration', action = 'store', type = 'float', dest = 'effectOutDuration', default = 0.8)
 		self.OptionParser.add_option('--effectOut', action = 'store', type = 'string', dest = 'effectOut', default = 'none')
 
@@ -57,7 +55,7 @@ class JessyInk_Effects(inkex.Effect):
 			if self.options.effectIn in ("appear", "fade", "pop", "matrix"):
 				attribs = { inkex.addNS('href','xlink'): '#'+id }
 				clone = inkex.etree.SubElement(self.current_layer, inkex.addNS('use','svg'), attribs)
-				clone.set("{" + inkex.NSS["jessyink"] + "}effectIn","name:" + self.options.effectIn  + ";order:" + self.options.effectInOrder + ";length:" + str(int(self.options.effectInDuration * 1000)))
+				clone.set("{" + inkex.NSS["jessyink"] + "}effectIn","name:" + self.options.effectIn  + ";length:" + str(int(self.options.effectInDuration * 1000)))
 				# Remove possible view argument.
 				if "{" + inkex.NSS["jessyink"] + "}view" in node.attrib:
 					del node.attrib["{" + inkex.NSS["jessyink"] + "}view"]
@@ -65,7 +63,7 @@ class JessyInk_Effects(inkex.Effect):
 			if self.options.effectOut in ("appear", "fade", "pop", "matrix"):
 				attribs = { inkex.addNS('href','xlink'): '#'+id }
 				clone = inkex.etree.SubElement(self.current_layer, inkex.addNS('use','svg'), attribs)
-				clone.set("{" + inkex.NSS["jessyink"] + "}effectOut","name:" + self.options.effectOut  + ";order:" + self.options.effectOutOrder + ";length:" + str(int(self.options.effectOutDuration * 1000)))
+				clone.set("{" + inkex.NSS["jessyink"] + "}effectOut","name:" + self.options.effectOut  + ";length:" + str(int(self.options.effectOutDuration * 1000)))
 				# Remove possible view argument.
 				if "{" + inkex.NSS["jessyink"] + "}view" in node.attrib:
 					del node.attrib["{" + inkex.NSS["jessyink"] + "}view"]
