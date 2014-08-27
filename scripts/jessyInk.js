@@ -2099,6 +2099,10 @@ function animate(dir, element, time, options)
 			var anim = animations[i];
 			var target = element.childNodes[0];
 
+			while (target.hasAttributeNS(NSS["jessyink"], "type")
+					&& target.getAttributeNS(NSS["jessyink"], "type") == "groupEffect")
+				target = target.childNodes[0];
+
 			var suffix = target.getAttribute("id").substring(target.getAttribute("id").length-2);
 			var copyAnim = document.getElementById(anim.getAttribute("id")+suffix)
 			if (!copyAnim)
