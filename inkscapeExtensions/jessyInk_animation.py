@@ -65,11 +65,12 @@ class JessyInk_Animation(inkex.Effect):
 			attribs = {'attributeName':self.options.attribute,
                                 'dur':str(self.options.duration)+"s",
                                 'repeatCount':self.options.repeat,
-                                'values':self.options.values,
                                 'from':self.options.origin,
                                 'to':self.options.to,
                                 'begin':'indefinite',
                                 }
+			if (self.options.values):
+                            attribs['values'] = self.options.values
 			inkex.etree.SubElement(clone, inkex.addNS('animate','svg'), attribs)
 
 		
