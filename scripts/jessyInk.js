@@ -2086,7 +2086,8 @@ function animate(dir, element, time, options)
 		for (var i = 0; i < source.childNodes.length; ++i)
 		{
 			child = source.childNodes[i];
-			if (child.toString() == "[object SVGAnimateElement]")
+			if (child.toString() == "[object SVGAnimateElement]" ||
+					child.toString() == "[object SVGAnimateTransformElement]")
 			{
 				if (length != -1)
 					child.setAttribute("dur", (length/1000)+"s");

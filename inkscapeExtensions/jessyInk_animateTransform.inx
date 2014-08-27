@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<inkscape-extension xmlns="http://www.inkscape.org/namespace/inkscape/extension">
+  <_name>AnimateTransform</_name>
+  <id>jessyink.animateTransform</id>
+  <dependency type="executable" location="extensions">inkex.py</dependency>
+  <dependency type="executable" location="extensions">jessyInk_animateTransform.py</dependency>
+  <param name="tab" type="notebook">
+    <page name="settings" _gui-text="Settings">
+			<param name="begin" type="string" _gui-text="Begin:">indefinite</param>
+			<param name="duration" precision="1" type="float" min="0.1" max="10.0" _gui-text="Duration in seconds:">0.8</param>
+			<param name="repeat" type="string" _gui-text="Repeat:"></param>
+			<param name="type" type="string" _gui-text="Type:"></param>
+			<param name="values" type="string" _gui-text="Values:"></param>
+			<param name="from" type="string" _gui-text="From:"></param>
+			<param name="to" type="string" _gui-text="To:"></param>
+		</page>
+    <page name="help" _gui-text="Help">
+      <_param name="help_text" type="description">This extension allows you to add an animateTransform for a JessyInk presentation. Please see code.google.com/p/jessyink for more details.</_param>
+    </page>
+  </param>
+  <effect>
+    <object-type>all</object-type>
+      <effects-menu>
+        <submenu _name="JessyInk"/>
+      </effects-menu>
+  </effect>
+  <script>
+    <command reldir="extensions" interpreter="python">jessyInk_animateTransform.py</command>
+  </script>
+</inkscape-extension>
+
