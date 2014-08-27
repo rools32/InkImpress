@@ -6,6 +6,7 @@
   <dependency type="executable" location="extensions">jessyInk_animation.py</dependency>
   <param name="tab" type="notebook">
     <page name="settings" _gui-text="Settings">
+			<param name="begin" type="string" _gui-text="Begin:">indefinite</param>
 			<param name="duration" precision="1" type="float" min="0.1" max="10.0" _gui-text="Duration in seconds:">0.8</param>
 			<param name="repeat" type="string" _gui-text="Repeat:"></param>
 			<param name="attribute" type="string" _gui-text="Name of the attribute:"></param>

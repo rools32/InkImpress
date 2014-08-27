@@ -2111,7 +2111,9 @@ function animate(dir, element, time, options)
 				copyAnim.setAttribute("id", copyAnim.getAttribute("id")+suffix);
 			}
 			target.appendChild(copyAnim);
-			copyAnim.beginElement();
+			// We trigger the effect only if the begin is undefinite
+			if (copyAnim.getAttribute("begin") == "indefinite")
+				copyAnim.beginElement();
 			animationArray.push(copyAnim);
 		}
 	}

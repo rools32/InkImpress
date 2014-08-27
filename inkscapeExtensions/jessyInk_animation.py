@@ -34,6 +34,7 @@ class JessyInk_Animation(inkex.Effect):
 		inkex.Effect.__init__(self)
 
 		self.OptionParser.add_option('--tab', action = 'store', type = 'string', dest = 'what')
+		self.OptionParser.add_option('--begin', action = 'store', type = 'string', dest = 'begin', default = 'indefinite')
 		self.OptionParser.add_option('--duration', action = 'store', type = 'float', dest = 'duration', default = 0.8)
 		self.OptionParser.add_option('--repeat', action = 'store', type = 'string', dest = 'repeat', default = '')
 		self.OptionParser.add_option('--attribute', action = 'store', type = 'string', dest = 'attribute', default = '')
@@ -63,11 +64,11 @@ class JessyInk_Animation(inkex.Effect):
 
 			# Add the animation
 			attribs = {'attributeName':self.options.attribute,
+                                'begin':self.options.begin,
                                 'dur':str(self.options.duration)+"s",
                                 'repeatCount':self.options.repeat,
                                 'from':self.options.origin,
                                 'to':self.options.to,
-                                'begin':'indefinite',
                                 }
 			if (self.options.values):
                             attribs['values'] = self.options.values
