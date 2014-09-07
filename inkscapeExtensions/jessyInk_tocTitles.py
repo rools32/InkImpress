@@ -182,6 +182,7 @@ class JessyInk_TOCTitles(inkex.Effect):
                 first = False
         
                 textObject = createUpdateText(textObject, iD, text, c, f, p)
+                textObject.set('layerId', t['id'])
                 layer.append(textObject)
         
                 if spacing:
