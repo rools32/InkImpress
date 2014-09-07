@@ -7,7 +7,7 @@ Fonctionnalités
 
 - ajouter exemple
 
-- ajouter effet : stoppe animation !
+- ajouter effet : arrête animation !
 - ajouter end
 
 - ajouter à animate/transform : additive="sum"
@@ -17,6 +17,10 @@ Fonctionnalités
 - réflêchir à meilleur que le coup des groupes et des suffixes
 
 - pour la toc, ajouter general à section et subsection
+
+- ajouter textes automatiques : section, sous-section
+
+- regrouper les effets (effects, animate, transform)
 
 
 Bogues
