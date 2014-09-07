@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <inkscape-extension xmlns="http://www.inkscape.org/namespace/inkscape/extension">
-  <_name>TOC pages</_name>
+  <_name>Complete</_name>
   <id>jessyink.tocPages</id>
   <dependency type="executable" location="extensions">inkex.py</dependency>
   <dependency type="executable" location="extensions">jessyInk_tocPages.py</dependency>
@@ -161,7 +161,11 @@
   <effect>
     <object-type>all</object-type>
       <effects-menu>
-        <submenu _name="JessyInk"/>
+				<submenu _name="JessyInk">
+					<submenu _name="TOC">
+						<submenu _name="Pages"/>
+					</submenu>
+				</submenu>
       </effects-menu>
   </effect>
   <script>

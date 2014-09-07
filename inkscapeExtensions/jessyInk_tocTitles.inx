@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <inkscape-extension xmlns="http://www.inkscape.org/namespace/inkscape/extension">
-  <_name>TOC titles</_name>
+  <_name>Complete</_name>
   <id>jessyink.tocTitles</id>
   <dependency type="executable" location="extensions">inkex.py</dependency>
   <dependency type="executable" location="extensions">jessyInk_tocTitles.py</dependency>
   <param name="tab" type="notebook">
     <page name="section" _gui-text="Section">
-      <param name="section_prespacing" type="float" min="0" max="1000.0" _gui-text="Pre vertical spacing">0.0</param>
-      <param name="section_postspacing" type="float" min="0" max="1000.0" _gui-text="Post vertical spacing">0.0</param>
+      <param name="section_prespacing" type="float" min="0" max="1000.0" _gui-text="Pre vertical spacing">1.5</param>
+      <param name="section_postspacing" type="float" min="0" max="1000.0" _gui-text="Post vertical spacing">0.4</param>
 			<param name="section_fontname" type="string" _gui-text="Font name">DejaVu Sans</param>
-      <param name="section_fontsize" type="int" min="1" max="1000" _gui-text="Font size">72</param>
+      <param name="section_fontsize" type="int" min="1" max="1000" _gui-text="Font size">45</param>
       <param name="section_anchor" type="optiongroup"  appearance="minimal" _gui-text="Anchor">
           <_option value="start">Start</_option>
           <_option value="middle">Middle</_option>
@@ -20,15 +20,15 @@
           <_option value="center">Center</_option>
           <_option value="right">Right</_option>
       </param>
-			<param name="section_format" type="string" _gui-text="Format">%section.%subsection. %title</param>
+			<param name="section_format" type="string" _gui-text="Format">%section %title</param>
     </page>
     <page name="subsection" _gui-text="Subsection">
-      <param name="subsection_prespacing" type="float" min="0" max="1000.0" _gui-text="Pre vertical spacing">0.0</param>
-      <param name="subsection_postspacing" type="float" min="0" max="1000.0" _gui-text="Post vertical spacing">0.0</param>
-      <param name="subsection_hshift" type="float" min="0" max="1000.0" _gui-text="Horizontal shift">0.0</param>
+      <param name="subsection_prespacing" type="float" min="0" max="1000.0" _gui-text="Pre vertical spacing">1.2</param>
+      <param name="subsection_postspacing" type="float" min="0" max="1000.0" _gui-text="Post vertical spacing">0.2</param>
+      <param name="subsection_hshift" type="float" min="0" max="1000.0" _gui-text="Horizontal shift">1.2</param>
       <param name="subsection_vshift" type="float" min="0" max="1000.0" _gui-text="Vertical shift">0.0</param>
 			<param name="subsection_fontname" type="string" _gui-text="Font name">DejaVu Sans</param>
-      <param name="subsection_fontsize" type="int" min="1" max="1000" _gui-text="Font size">72</param>
+      <param name="subsection_fontsize" type="int" min="1" max="1000" _gui-text="Font size">32</param>
       <param name="subsection_anchor" type="optiongroup"  appearance="minimal" _gui-text="Anchor">
           <_option value="start">Start</_option>
           <_option value="middle">Middle</_option>
@@ -51,7 +51,11 @@
   <effect>
     <object-type>all</object-type>
       <effects-menu>
-        <submenu _name="JessyInk"/>
+				<submenu _name="JessyInk">
+					<submenu _name="TOC">
+						<submenu _name="Titles"/>
+					</submenu>
+				</submenu>
       </effects-menu>
   </effect>
   <script>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<inkscape-extension xmlns="http://www.inkscape.org/namespace/inkscape/extension">
+  <_name>Simple</_name>
+  <id>jessyink.tocPagesSimple</id>
+  <dependency type="executable" location="extensions">inkex.py</dependency>
+  <dependency type="executable" location="extensions">jessyInk_tocPages.py</dependency>
+  <param name="tab" type="notebook">
+    <page name="section" _gui-text="Section">
+			<param name="tab" type="notebook">
+				<page name="section_me" _gui-text="Me">
+					<param name="section_me_style" type="optiongroup"  appearance="minimal" _gui-text="Style">
+				    <_option value="none">None</_option>
+						<_option value="color">Color</_option>
+					  <_option value="alpha">Alpha</_option>
+				    <_option value="both">Both</_option>
+				  </param>
+			    <param name="section_me_rgba" type="color">#000000</param>
+        </page>
+			</param>
+		</page>
+    <page name="subsection" _gui-text="Subsection">
+			<param name="tab" type="notebook">
+				<page name="subsection_me" _gui-text="Me">
+					<param name="subsection_me_style" type="optiongroup"  appearance="minimal" _gui-text="Style">
+				    <_option value="none">None</_option>
+						<_option value="color">Color</_option>
+					  <_option value="alpha">Alpha</_option>
+				    <_option value="both">Both</_option>
+				  </param>
+			    <param name="subsection_me_rgba" type="color">#000000</param>
+        </page>
+				<page name="subsection_cs" _gui-text="Current section">
+					<param name="subsection_cs_style" type="optiongroup"  appearance="minimal" _gui-text="Style">
+				    <_option value="hidden">Hidden</_option>
+				    <_option value="none">None</_option>
+						<_option value="color">Color</_option>
+					  <_option value="alpha">Alpha</_option>
+				    <_option value="both">Both</_option>
+				  </param>
+			    <param name="subsection_cs_rgba" type="color">#000000</param>
+        </page>
+			</param>
+		</page>
+    <page name="help" _gui-text="Help">
+			<_param name="help_text" type="description">This extension.</_param>
+    </page>
+  </param>
+
+  <effect>
+    <object-type>all</object-type>
+      <effects-menu>
+				<submenu _name="JessyInk">
+					<submenu _name="TOC">
+						<submenu _name="Pages"/>
+					</submenu>
+				</submenu>
+      </effects-menu>
+  </effect>
+  <script>
+    <command reldir="extensions" interpreter="python">jessyInk_tocPages.py</command>
+  </script>
+</inkscape-extension>
