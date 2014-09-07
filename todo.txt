@@ -1,0 +1,34 @@
+Fonctionnalités
+- commencer les effets à l'apparition du transparent
+  - changer dispatchEffects et les longueurs
+
+- ajouter la persistence des animations
+  - fill="freeze"
+
+- ajouter exemple
+
+- ajouter effet : stoppe animation !
+- ajouter end
+
+- ajouter à animate/transform : additive="sum"
+
+- transformer tous les href avec le suffixe
+
+- réflêchir à meilleur que le coup des groupes et des suffixes
+
+- pour la toc, ajouter general à section et subsection
+
+
+Bogues
+- comparaison de texte dans TOC pour savoir si c'est à jour
+- TOC : supprimer les titres qui n'existent plus
+- TOC : gérer les caractères non-ascii dans le format
+  textObject.text = unicode(text)
+	-> UnicodeDecodeError: 'ascii' codec can't decode byte 0xe2
+
+
+Impossibles
+- utiliser xlink/href pour cible d'animation au lieu de le copier dans le groupe
+  -> nop car le problème est que l'animation est alors dans un calque caché est
+	n'est donc pas visible
+

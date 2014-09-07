@@ -6,3 +6,4 @@ The purpose of this fork is to improve (in my opinion) how the effects are handl
 Features added
   - Matrix transform effect: just move the clone with this effect and the transformation matrix will be applied to the original (skew is not handled yet, I do not know the right formula).
   - SMIL animate effect: you can change a parameter of an object.
+  - Automatic table of contents.
