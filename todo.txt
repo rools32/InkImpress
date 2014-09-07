@@ -30,6 +30,11 @@ Fonctionnalités
 
 - réfléchir au problème de tspan inkscape non pris en charge
 
+- TOC : ajouter modèle avec animations
+
+- TOC : ajouter alerte si style, alors que source du clone n'a pas un style
+	indéfini
+
 Bogues
 - comparaison de texte dans TOC pour savoir si c'est à jour
 - TOC : supprimer les titres qui n'existent plus
@@ -40,6 +45,6 @@ Bogues
 
 Impossibles
 - utiliser xlink/href pour cible d'animation au lieu de le copier dans le groupe
-  -> nop car le problème est que l'animation est alors dans un calque caché est
+  -> nop car le problème est que l'animation est alors dans un calque caché et
 	n'est donc pas visible
 
