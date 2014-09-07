@@ -71,32 +71,32 @@ def createUpdateText(textObject, iD, text, coords, font, position):
 
 
 class JessyInk_TOCTitles(inkex.Effect):
-	def __init__(self):
-		# Call the base class constructor.
-		inkex.Effect.__init__(self)
+        def __init__(self):
+                # Call the base class constructor.
+                inkex.Effect.__init__(self)
 
-		self.OptionParser.add_option('--section_prespacing', action = 'store', type = 'float', dest = 'section_prespacing')
-		self.OptionParser.add_option('--section_postspacing', action = 'store', type = 'float', dest = 'section_postspacing')
-		self.OptionParser.add_option('--section_fontname', action = 'store', type = 'string', dest = 'section_fontname')
-		self.OptionParser.add_option('--section_fontsize', action = 'store', type = 'int', dest = 'section_fontsize')
-		self.OptionParser.add_option('--section_anchor', action = 'store', type = 'string', dest = 'section_anchor')
-		self.OptionParser.add_option('--section_align', action = 'store', type = 'string', dest = 'section_align')
-		self.OptionParser.add_option('--section_format', action = 'store', type = 'string', dest = 'section_format')
-		self.OptionParser.add_option('--subsection_prespacing', action = 'store', type = 'float', dest = 'subsection_prespacing')
-		self.OptionParser.add_option('--subsection_postspacing', action = 'store', type = 'float', dest = 'subsection_postspacing')
-		self.OptionParser.add_option('--subsection_hshift', action = 'store', type = 'float', dest = 'subsection_hshift')
-		self.OptionParser.add_option('--subsection_vshift', action = 'store', type = 'float', dest = 'subsection_vshift')
-		self.OptionParser.add_option('--subsection_fontname', action = 'store', type = 'string', dest = 'subsection_fontname')
-		self.OptionParser.add_option('--subsection_fontsize', action = 'store', type = 'int', dest = 'subsection_fontsize')
-		self.OptionParser.add_option('--subsection_anchor', action = 'store', type = 'string', dest = 'subsection_anchor')
-		self.OptionParser.add_option('--subsection_align', action = 'store', type = 'string', dest = 'subsection_align')
-		self.OptionParser.add_option('--subsection_format', action = 'store', type = 'string', dest = 'subsection_format')
-		self.OptionParser.add_option('--hasSpacing', action = 'store', type = 'inkbool', dest = 'hasSpacing')
-		self.OptionParser.add_option('--hasFont', action = 'store', type = 'inkbool', dest = 'hasFont')
+                self.OptionParser.add_option('--section_prespacing', action = 'store', type = 'float', dest = 'section_prespacing')
+                self.OptionParser.add_option('--section_postspacing', action = 'store', type = 'float', dest = 'section_postspacing')
+                self.OptionParser.add_option('--section_fontname', action = 'store', type = 'string', dest = 'section_fontname')
+                self.OptionParser.add_option('--section_fontsize', action = 'store', type = 'int', dest = 'section_fontsize')
+                self.OptionParser.add_option('--section_anchor', action = 'store', type = 'string', dest = 'section_anchor')
+                self.OptionParser.add_option('--section_align', action = 'store', type = 'string', dest = 'section_align')
+                self.OptionParser.add_option('--section_format', action = 'store', type = 'string', dest = 'section_format')
+                self.OptionParser.add_option('--subsection_prespacing', action = 'store', type = 'float', dest = 'subsection_prespacing')
+                self.OptionParser.add_option('--subsection_postspacing', action = 'store', type = 'float', dest = 'subsection_postspacing')
+                self.OptionParser.add_option('--subsection_hshift', action = 'store', type = 'float', dest = 'subsection_hshift')
+                self.OptionParser.add_option('--subsection_vshift', action = 'store', type = 'float', dest = 'subsection_vshift')
+                self.OptionParser.add_option('--subsection_fontname', action = 'store', type = 'string', dest = 'subsection_fontname')
+                self.OptionParser.add_option('--subsection_fontsize', action = 'store', type = 'int', dest = 'subsection_fontsize')
+                self.OptionParser.add_option('--subsection_anchor', action = 'store', type = 'string', dest = 'subsection_anchor')
+                self.OptionParser.add_option('--subsection_align', action = 'store', type = 'string', dest = 'subsection_align')
+                self.OptionParser.add_option('--subsection_format', action = 'store', type = 'string', dest = 'subsection_format')
+                self.OptionParser.add_option('--hasSpacing', action = 'store', type = 'inkbool', dest = 'hasSpacing')
+                self.OptionParser.add_option('--hasFont', action = 'store', type = 'inkbool', dest = 'hasFont')
                 self.OptionParser.add_option('--tab', action="store", type="string", dest="tab") 
 
 
-	def effect(self):
+        def effect(self):
                 root = self.document.getroot()
                 master = TOC_findMaster(effect)
                 if master == None:
@@ -165,11 +165,13 @@ class JessyInk_TOCTitles(inkex.Effect):
                     f = font[kind]
                 else:
                     if textObject is None:
-                        inkex.errormsg("You must choose a font")
+                        inkex.errormsg(error_font)
+                        return()
                     pattern = re.compile('font-size:.*px?;')
                     s = pattern.search(textObject.get('style'))
                     if s is None:
-                        inkex.errormsg("You must choose a font")
+                        inkex.errormsg(error_font)
+                        return()
                     fontSize = float(s.group(0)[10:-3])
                     f = None
         
@@ -194,6 +196,7 @@ class JessyInk_TOCTitles(inkex.Effect):
             # Finally we remove the removed sections
             # TODO
 
+error_font = "You must choose a font"
 
 # Create effect instance
 effect = JessyInk_TOCTitles()
