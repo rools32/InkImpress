@@ -30,64 +30,7 @@ sys.path.append('C:\Program Files\Inkscape\share\extensions')
 import inkex
 import simplestyle
 import re
-
-try:
-    from subprocess import Popen, PIPE
-    bsubprocess = True
-except:
-    bsubprocess = False
-
-
-""" Function from the perspective extension
-"""
-def boundingBox(self, iD):
-    q = {'x':0,'y':0,'width':0,'height':0}
-    file = self.args[-1]
-    for query in q.keys():
-        if bsubprocess:
-            p = Popen('inkscape --query-%s --query-id=%s "%s"' \
-                    % (query,iD,file), shell=True, stdout=PIPE, stderr=PIPE)
-            rc = p.wait()
-            q[query] = float(p.stdout.read())
-            err = p.stderr.read()
-        else:
-            f,err = os.popen3('inkscape --query-%s --query-id=%s "%s"' \
-                    % (query,iD,file))[1:]
-            q[query] = float(f.read())
-            f.close()
-            err.close()
-    return(q)
-
-
-def TOC_buildList(root):
-    tocList = []
-    sectionIndex = 0
-    subsectionIndex = 0
-    for node in root:
-        if node.tag == '{http://www.w3.org/2000/svg}g':
-            if node.attrib['{http://www.inkscape.org/namespaces/inkscape}'+
-                    'groupmode'] == 'layer':
-                label = node.attrib\
-                        ['{http://www.inkscape.org/namespaces/inkscape}label']
-                titlePattern = re.compile("^\#(sub)?section ")
-                if re.match(titlePattern, label):
-                    sectionPattern = re.compile("^\#section ")
-                    if re.match(sectionPattern, label):
-                        sectionIndex = sectionIndex+1
-                        subsectionIndex = 0
-                    else:
-                        if sectionIndex == 0:
-                            inkex.errormsg("Subsection outside any section")
-                            return []
-                        subsectionIndex = subsectionIndex+1
-                    index = (sectionIndex, subsectionIndex)
-                    title = label.split(' ', 1)[1]
-                    tocList.append({'id':node.attrib['id'],
-                        'title':title, 'index':index})
-    return(tocList)
-            
-def TOC_findMaster(effect):
-    return(effect.getElementById('toc_master'))
+from jessyInk_tocTools import *
 
 def generateTitle(elm, format):
     text = format
@@ -125,70 +68,9 @@ def createUpdateText(textObject, iD, text, coords, font, position):
     # probleme c'est qu'il faut regarder le ligne de base et non la bbox
     return(textObject)
 
-def TOC_addTitles(effect, tocList, toc_layer,
-        format=('%title','%section.%subsection)%title'),
-        spacing=((1.2,0.2),(1.2,0.2)), subshift=(1, 0),
-        font=(('DejaVu Sans',72),('DejaVu Sans',66)),
-        position=(('middle', 'left'), ('middle', 'left'))):
-    # First we create the layer for all the titles
-
-    layerId = 'toc_titles'
-    layer = effect.getElementById(layerId)
-    if layer is None:
-        layer = inkex.etree.SubElement(toc_layer, 'g')
-        layer.set(inkex.addNS('label', 'inkscape'), 'toc_titles')
-        layer.set(inkex.addNS('groupmode', 'inkscape'), 'layer')
-        layer.set(inkex.addNS('id'), layerId)
-
-    # Then we add the texts
-    x = 0
-    y = 0
-    first = True
-    for t in tocList:
-        # Determines the type of the title
-        if t['index'][1] == 0:
-            kind = 0
-        else:
-            kind = 1
-        text = generateTitle(t, format[kind])
-        iD = 'toc_title_' + str(t['index'][0]) + ['', '.'+str(t['index'][1])][kind]
-        textObject = effect.getElementById(iD)
-
-        if font:
-            fontSize = font[kind][1]
-            f = font[kind]
-        else:
-            if textObject is None:
-                inkex.errormsg("You must choose a font")
-            pattern = re.compile('font-size:.*px?;')
-            s = pattern.search(textObject.get('style'))
-            if s is None:
-                inkex.errormsg("You must choose a font")
-            fontSize = float(s.group(0)[10:-3])
-            f = None
-
-        if spacing:
-            if first: y = 0
-            else: y = y+fontSize*spacing[kind][0]
-            if kind: c = (x+fontSize*subshift[0], y+fontSize*subshift[1])
-            else: c = (x, y)
-            p = position[kind]
-        else:
-            c = None
-            p = None
-        first = False
-
-        textObject = createUpdateText(textObject, iD, text, c, f, p)
-        layer.append(textObject)
-
-        if spacing:
-            y = y+fontSize*spacing[kind][1]
-
-    # Finally we remove the removed sections
-    # TODO
 
 
-class JessyInk_Install(inkex.Effect):
+class JessyInk_TOCTitles(inkex.Effect):
 	def __init__(self):
 		# Call the base class constructor.
 		inkex.Effect.__init__(self)
@@ -248,15 +130,72 @@ class JessyInk_Install(inkex.Effect):
                 else:
                     font = None
 
-                TOC_addTitles(self, tocList, master, format, spacing, subshift, font, position)
+                self.TOC_addTitles(tocList, master, format, spacing, subshift, font, position)
+
+        def TOC_addTitles(effect, tocList, toc_layer,
+                format=('%title','%section.%subsection)%title'),
+                spacing=((1.2,0.2),(1.2,0.2)), subshift=(1, 0),
+                font=(('DejaVu Sans',72),('DejaVu Sans',66)),
+                position=(('middle', 'left'), ('middle', 'left'))):
+            # First we create the layer for all the titles
+        
+            layerId = 'toc_titles'
+            layer = effect.getElementById(layerId)
+            if layer is None: layer = createLayer(toc_layer, layerId, layerId)
+        
+            # Then we add the texts
+            x = 0
+            y = 0
+            first = True
+            for t in tocList:
+                # Determines the type of the title
+                if t['index'][1] == 0:
+                    kind = 0
+                else:
+                    kind = 1
+                text = generateTitle(t, format[kind])
+                iD = 'toc_title_' + str(t['index'][0]) + ['', '.'+str(t['index'][1])][kind]
+                textObject = effect.getElementById(iD)
+        
+                if font:
+                    fontSize = font[kind][1]
+                    f = font[kind]
+                else:
+                    if textObject is None:
+                        inkex.errormsg("You must choose a font")
+                    pattern = re.compile('font-size:.*px?;')
+                    s = pattern.search(textObject.get('style'))
+                    if s is None:
+                        inkex.errormsg("You must choose a font")
+                    fontSize = float(s.group(0)[10:-3])
+                    f = None
+        
+                if spacing:
+                    if first: y = 0
+                    else: y = y+fontSize*spacing[kind][0]
+                    if kind: c = (x+fontSize*subshift[0], y+fontSize*subshift[1])
+                    else: c = (x, y)
+                    p = position[kind]
+                else:
+                    c = None
+                    p = None
+                first = False
+        
+                textObject = createUpdateText(textObject, iD, text, c, f, p)
+                layer.append(textObject)
+        
+                if spacing:
+                    y = y+fontSize*spacing[kind][1]
+        
+            # Finally we remove the removed sections
+            # TODO
 
 
 # Create effect instance
-effect = JessyInk_Install()
+effect = JessyInk_TOCTitles()
 effect.affect()
-root = effect.document.getroot()
 
-#/usr/bin/python2 jessyInk_install.py --tab="help" /tmp/ink_ext_XXXXXX.svg7DNYLX
+#/usr/bin/python2 jessyInk_tocTitles.py --tab="help" /tmp/ink_ext_XXXXXX.svg7DNYLX
 #import sys
 #sys.argv = ["jessyInk_truc.py", '--tab="help"', "/tmp/test.svg"]
 #execfile("jessyInk_truc.py")
