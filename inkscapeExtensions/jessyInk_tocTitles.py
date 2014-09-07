@@ -99,6 +99,9 @@ class JessyInk_TOCTitles(inkex.Effect):
 	def effect(self):
                 root = self.document.getroot()
                 master = TOC_findMaster(effect)
+                if master == None:
+                    master = createLayer(root, 'toc_master', 'TOC_Master')
+
                 tocList =  TOC_buildList(root)
 
                 format = (self.options.section_format, self.options.subsection_format)
